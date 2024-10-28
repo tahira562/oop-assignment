@@ -1,0 +1,291 @@
+directories:
+package tjava;
+import java.util.GregorianCalendar;
+import java.util.ArrayList;
+public class TDirectories {
+    private ArrayList<Tcontact>directory;
+    private int num;
+    public TDirectories(){
+        this.directory=new ArrayList<>();
+        this.num=0;
+         
+    }
+public TDirectories(ArrayList<Tcontact>directory){
+    this.directory=directory;
+    this.num=directory.size();
+}
+    
+
+    public void setDirectory(ArrayList<Tcontact> directory) {
+        this.directory = directory;
+    }
+
+   
+    public ArrayList<Tcontact> getDirectory() {
+        return directory;
+    }
+
+
+    @Override
+    public String toString() {
+        return "TDirectories{" + "directory=" + directory + ", num=" + num + '}';
+    }
+    public void addTContact(Tcontact c) {
+        directory.add(c);
+        num++; 
+    }
+     public void addTContact(String f, String l, String[] p, String a, String o, String n, GregorianCalendar dob) {
+     Tcontact c = new Tcontact (f, l, p, a, o, n, dob);
+        addTContact(c);
+     }
+     public Tcontact searchContact(String fName) {
+        for (Tcontact contact : directory) {
+            if (contact.getfName().equalsIgnoreCase(fName)) {
+                return contact;
+            }
+        }
+        return null; 
+    }
+      public boolean deleteContact(String fName) {
+        for (int i = 0; i < directory.size(); i++) {
+            if (directory.get(i).getfName().equalsIgnoreCase(fName)) {
+                directory.remove(i);
+                num--;
+                return true; 
+            }
+        }
+        return false; 
+    }
+}
+contacts:
+package tjava;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+public class Tcontact {
+   	private String fName, lName;
+	private String[] phoneNum;
+	private String affiliation;
+	private String occupation;
+	private String note = "";
+	private GregorianCalendar dob;
+	private boolean blocked;
+public Tcontact(){
+    this.blocked=false;
+this.phoneNum= new String[0];
+}
+    public Tcontact(String fName, String lName, String[] phoneNum, String affiliation,String note, String occupation, GregorianCalendar dob, boolean blocked) {
+        this.fName = fName;
+        this.lName = lName;
+        this.phoneNum = phoneNum;
+        this.affiliation = affiliation;
+        this.occupation = occupation;
+        this.note=note;
+        this.dob = dob;
+        this.blocked =false;
+    }
+     public Tcontact(String fName, String lName) {
+        this.fName=fName;
+        this.lName=lName;
+        this.phoneNum=new String[0];
+        this.blocked=false;
+      
+     }
+
+    Tcontact(String f, String l, String[] p, String a, String o, String n, GregorianCalendar dob) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public String[] getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String[] phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public GregorianCalendar getDob() {
+        return dob;
+    }
+
+    public void setDob(GregorianCalendar dob) {
+        this.dob = dob;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+ public void replaceNumber(String oldNum, String newNum){
+     for(int i=0; i<phoneNum.length; i++){
+         if(phoneNum[i].equals(oldNum)){
+             phoneNum[i]=newNum;
+         }
+         else{
+     }
+ }
+
+  
+    }
+
+    @Override
+    public String toString() {
+        return "Tcontact{" + "fName=" + fName + ", lName=" + lName + ", phoneNum=" + Arrays.toString(phoneNum) + ", affiliation=" + affiliation + ", occupation=" + occupation + ", note=" + note + ", dob=" + dob + ", blocked=" + blocked + '}';
+    }
+}
+main:
+package tjava;
+
+import java.util.GregorianCalendar;
+import java.util.Scanner;
+public class TJAVA {
+
+    public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+        TDirectories directory = new TDirectories();
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Add Contact");
+            System.out.println("2. Search Contact");
+            System.out.println("3. Delete a Contact");
+            System.out.println("4. Replace a Number");
+            System.out.println("5. Display All");
+            System.out.println("6. Block a Number");
+            System.out.println("7. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); 
+switch (choice) {
+                case 1:
+                  
+                    System.out.print("First Name: ");
+                    String fName = scanner.nextLine();
+                    System.out.print("Last Name: ");
+                    String lName = scanner.nextLine();
+                    System.out.print("Phone Numbers (comma separated): ");
+                    String[] phoneNums = scanner.nextLine().split(",");
+                    System.out.print("Affiliation: ");
+                    String affiliation = scanner.nextLine();
+                    System.out.print("Occupation: ");
+                    String occupation = scanner.nextLine();
+                    System.out.print("Note: ");
+                    String note = scanner.nextLine();
+                    System.out.print("DOB (yyyy-mm-dd): ");
+                    String dobString = scanner.nextLine();
+                    String[] dobParts = dobString.split("-");
+                    GregorianCalendar dob = new GregorianCalendar(Integer.parseInt(dobParts[0]), Integer.parseInt(dobParts[1]) - 1, Integer.parseInt(dobParts[2]));
+
+                    directory.addTContact(fName, lName, phoneNums, affiliation, occupation, note, dob);
+                    break;
+
+                case 2:
+                    System.out.print("Enter first name to search: ");
+                    String searchName = scanner.nextLine();
+                    Tcontact foundContact = directory.searchContact(searchName);
+                    if (foundContact != null) {
+                        System.out.println("Contact found:");
+                        System.out.println(foundContact);
+                    } else {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter First Name to Delete: ");
+                    if (directory.deleteContact(scanner.nextLine())) {
+                        System.out.println("Contact deleted.");
+                    } else {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+                     case 4:
+                   System.out.print("Enter first name to replace number: ");
+                    String replaceName = scanner.nextLine();
+                    Tcontact contactToReplace = directory.searchContact(replaceName);
+                    if (contactToReplace != null) {
+                        System.out.print("Enter old number: ");
+                        String oldNum = scanner.nextLine();
+                        System.out.print("Enter new number: ");
+                        String newNum = scanner.nextLine();
+                        contactToReplace.replaceNumber(oldNum, newNum);
+                        System.out.println("Number replaced.");
+                    } else {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+                    
+
+                case 5:
+                   
+                    System.out.println(directory);
+                    break;
+
+                case 6:
+                  
+                     System.out.print("Enter first name to block: ");
+                    String blockName = scanner.nextLine();
+                    Tcontact contactToBlock = directory.searchContact(blockName);
+                    if (contactToBlock != null) {
+                        contactToBlock.setBlocked(true);
+                        System.out.println("Contact blocked.");
+                    } else {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+                case 7:
+                  
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option, try again.");
+            }
+        }
+    }
+}
+
+
+
+
